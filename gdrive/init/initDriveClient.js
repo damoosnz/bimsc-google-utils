@@ -11,7 +11,8 @@ export default async function initDriveClient() {
     throw new Error('process.env.GL_SA_CREDENTIALS_PATH variable is missing')
   }
 
-  const glSaCreds = bimscJs.files.readJsonFile(glSaCredsPath)
+  const absolutePath = path.resolve(process.cwd(), glSaCredsPath)
+  const glSaCreds = bimscJs.files.readJsonFile(absolutePath)
 
   //Create a new client for google drive
   const client = await google.auth.getClient({
