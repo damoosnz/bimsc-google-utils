@@ -14,7 +14,7 @@ export default async function initDriveClient() {
   }
 
   //
-  const resolvedglSaCredsPath = path.resolve(resolvedglSaCredsPath)
+  const resolvedglSaCredsPath = path.resolve(glSaCredsPath)
   const glSaCreds = bimscJs.files.readJsonFile(resolvedglSaCredsPath)
 
   //Create a new client for google drive
