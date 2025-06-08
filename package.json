@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "bimsc-js-utils": "github:damoosnz/bimsc-js-utils",
+    "googleapis": "^150.0.1"
+  },
+  "type": "module",
+  "name": "bimsc-google-utils",
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
