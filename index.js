@@ -1,7 +1,5 @@
-import uploadFileToGoogleDrive from "./gdrive/functions/uploadFileToGoogleDrive.js";
+import { drive } from "googleapis/build/src/apis/drive.js"
 
 export const google = {
-    drive: {
-        uploadFile: uploadFileToGoogleDrive
-    }
+    drive: drive
 } 
