@@ -3,10 +3,10 @@ import { convertFileContentsToStream } from "../utils/convert-file-contents-to-s
 
 export default async function uploadFileToDrive(settings = { folderId, mimeType, fileName, fileContents }) {
 
-  if (!folderId) throw new Error('folderId is required');
-  if (!fileContents) throw new Error('fileContents is required');
-  if (!mimeType) throw new Error('mimeType is required');
-  if (!fileName) throw new Error('fileName is required');
+  if (!settings.folderId) throw new Error('folderId is required');
+  if (!settings.fileContents) throw new Error('fileContents is required');
+  if (!settings.mimeType) throw new Error('mimeType is required');
+  if (!settings.fileName) throw new Error('fileName is required');
 
   const drive = await initDriveClient();
 

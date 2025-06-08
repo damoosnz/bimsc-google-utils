@@ -3,24 +3,24 @@ import initDriveClient from "../init/initDriveClient.js";
 
 export default async function updateFileInDrive(settings = { fileId, mimeType, fileContents }) {
 
-    if (!fileId) throw new Error('fileId is required');
-    if (!fileContents) throw new Error('fileContents is required');
-    if (!mimeType) throw new Error('mimeType is required');
+    if (!settings.fileId) throw new Error('fileId is required');
+    if (!settings.fileContents) throw new Error('fileContents is required');
+    if (!settings.mimeType) throw new Error('mimeType is required');
 
     const drive = await initDriveClient();
 
     // If fileContents is a string, convert it to a stream
     let mediaBody;
-    if (typeof fileContents === 'string') {
-        mediaBody = convertFileContentsToStream(fileContents);
+    if (typeof settings.fileContents === 'string') {
+        mediaBody = convertFileContentsToStream(settings.fileContents);
     } else {
-        mediaBody = fileContents;
+        mediaBody = settings.fileContents;
     }
 
     const res = await drive.files.update({
-        fileId,
+        fileId: settings.fileId,
         media: {
-            mimeType,
+            mimeType: settings.mimeType,
             body: mediaBody,
         },
     });

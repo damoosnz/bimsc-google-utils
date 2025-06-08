@@ -1,13 +1,15 @@
+import initDriveClient from "../init/initDriveClient.js";
+
 export default async function findFileIdInDrive(settings = { folderId, fileName }) {
 
-    if (!fileId) throw new Error('fileId is required');
+    if (!settings.fileName) throw new Error('fileName is required');
 
     const drive = await initDriveClient();
 
     // Build the query string
-    let query = `name = '${fileName.replace(/'/g, "\\'")}' and trashed = false`;
-    if (folderId) {
-        query = `'${folderId}' in parents and ` + query;
+    let query = `name = '${settings.fileName.replace(/'/g, "\\'")}' and trashed = false`;
+    if (settings.folderId) {
+        query = `'${settings.folderId}' in parents and ` + query;
     }
 
     const res = await drive.files.list({
