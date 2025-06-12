@@ -1,5 +1,17 @@
-import { convertFileContentsToStream } from "../utils/convert-file-contents-to-stream.js";
 import initDriveClient from "../init/initDriveClient.js";
+import { toReadableStream } from "../utils/convert-file-contents-to-stream.js";
+
+/**
+ * Updates an existing file in Google Drive with new contents and MIME type.
+ *
+ * @async
+ * @param {Object} settings - The update settings.
+ * @param {string} settings.fileId - The ID of the file to update. (Required)
+ * @param {string} settings.mimeType - The MIME type of the file. (Required)
+ * @param {Buffer|string} settings.fileContents - The new contents of the file. (Required)
+ * @returns {Promise<Object>} The updated file resource.
+ * @throws {Error} If any required setting is missing.
+ */
 
 export default async function updateFileInDrive(settings = { fileId, mimeType, fileContents }) {
 
@@ -9,19 +21,14 @@ export default async function updateFileInDrive(settings = { fileId, mimeType, f
 
     const drive = await initDriveClient();
 
-    // If fileContents is a string, convert it to a stream
-    let mediaBody;
-    if (typeof settings.fileContents === 'string') {
-        mediaBody = convertFileContentsToStream(settings.fileContents);
-    } else {
-        mediaBody = settings.fileContents;
-    }
+    const mediaBody = toReadableStream(settings.fileContents)
 
     const res = await drive.files.update({
         fileId: settings.fileId,
         media: {
             mimeType: settings.mimeType,
             body: mediaBody,
+            fields: 'id, name, webViewLink',
         },
     });
 

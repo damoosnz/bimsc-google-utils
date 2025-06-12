@@ -5,7 +5,7 @@ import { uploadOverwriteFileInDrive } from "../functions/overwrite-file-in-drive
 import initDriveClient from "../init/initDriveClient.js"
 
 export const drive = {
-    findFileId: findFileIdInDrive,
+    findFileId: (settings= { folderId, fileName }) => findFileIdInDrive(settings= { folderId, fileName }),
     uploadFile: uploadFileToDrive,
     updateFile: updateFileInDrive,
     overwriteFile: uploadOverwriteFileInDrive,

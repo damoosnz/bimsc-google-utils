@@ -2,7 +2,6 @@ import { google } from 'googleapis';
 import { bimscJs } from 'bimsc-js-utils';
 import path from 'path'
 
-
 // serviceAccountCredentials is a path to the google credential json file
 
 export default async function initDriveClient() {
@@ -13,7 +12,6 @@ export default async function initDriveClient() {
     throw new Error('process.env.GL_SA_CREDENTIALS_PATH variable is missing')
   }
 
-  //
   const resolvedglSaCredsPath = path.resolve(glSaCredsPath)
   const glSaCreds = bimscJs.files.readJsonFile(resolvedglSaCredsPath)
 

@@ -1,5 +1,18 @@
 import initDriveClient from "../init/initDriveClient.js";
-import { convertFileContentsToStream } from "../utils/convert-file-contents-to-stream.js";
+import { toReadableStream } from "../utils/convert-file-contents-to-stream.js";
+
+/**
+ * Uploads a new file to Google Drive in the specified folder.
+ *
+ * @async
+ * @param {Object} settings - The upload settings.
+ * @param {string} settings.folderId - The ID of the folder to upload to. (Required)
+ * @param {string} settings.mimeType - The MIME type of the file. (Required)
+ * @param {string} settings.fileName - The name of the file. (Required)
+ * @param {Buffer|string} settings.fileContents - The contents of the file. (Required)
+ * @returns {Promise<Object>} The uploaded file resource.
+ * @throws {Error} If any required setting is missing.
+ */
 
 export default async function uploadFileToDrive(settings = { folderId, mimeType, fileName, fileContents }) {
 
@@ -10,12 +23,7 @@ export default async function uploadFileToDrive(settings = { folderId, mimeType,
 
   const drive = await initDriveClient();
 
-  let mediaBody;
-  if (typeof settings.fileContents === 'string') {
-    mediaBody = convertFileContentsToStream(settings.fileContents);
-  } else {
-    mediaBody = settings.fileContents;
-  }
+  const mediaBody = toReadableStream(settings.fileContents)
 
   const fileMetadata = {
     name: settings.fileName,
@@ -31,7 +39,8 @@ export default async function uploadFileToDrive(settings = { folderId, mimeType,
   const res = await drive.files.create({
     requestBody: fileMetadata,
     media: fileContents,
-    supportsAllDrives: true
+    supportsAllDrives: true,
+    fields: 'id, name, webViewLink',
   });
 
   return res.data;
