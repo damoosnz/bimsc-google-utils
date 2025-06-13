@@ -10,4 +10,5 @@ export const drive = {
     updateFile: updateFileInDrive,
     overwriteFile: uploadOverwriteFileInDrive,
     initDriveClient: initDriveClient,
+    getFile: getFile
 }

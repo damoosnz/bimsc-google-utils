@@ -1,37 +1,49 @@
 import initDriveClient from "../init/initDriveClient.js";
 import { toReadableStream } from "../utils/convert-file-contents-to-stream.js";
+import { getFileFromDrive } from "./get-file.js";
 
 /**
  * Updates an existing file in Google Drive with new contents and MIME type.
  *
  * @async
- * @param {Object} settings - The update settings.
- * @param {string} settings.fileId - The ID of the file to update. (Required)
- * @param {string} settings.mimeType - The MIME type of the file. (Required)
- * @param {Buffer|string} settings.fileContents - The new contents of the file. (Required)
+ * @param {Object} params - The update settings.
+ * @param {string} params.fileId - The ID of the file to update. (Required)
+ * @param {string} params.mimeType - The MIME type of the file. (Required)
+ * @param {Buffer|string} params.fileContents - The new contents of the file. (Required)
+ * @param {string[]} [params.fields] - Array of metadata fields to return (optional).
  * @returns {Promise<Object>} The updated file resource.
  * @throws {Error} If any required setting is missing.
  */
+export default async function updateFileInDrive({ fileId, mimeType, fileContents, fields = [] }) {
 
-export default async function updateFileInDrive(settings = { fileId, mimeType, fileContents }) {
-
-    if (!settings.fileId) throw new Error('fileId is required');
-    if (!settings.fileContents) throw new Error('fileContents is required');
-    if (!settings.mimeType) throw new Error('mimeType is required');
+    if (!fileId) throw new Error('fileId is required');
+    if (!fileContents) throw new Error('fileContents is required');
+    if (!mimeType) throw new Error('mimeType is required');
+    if (!Array.isArray(fields)) throw new Error('fields must be an array of strings');
 
     const drive = await initDriveClient();
 
-    const mediaBody = toReadableStream(settings.fileContents)
+    const mediaBody = toReadableStream(fileContents);
 
-    const res = await drive.files.update({
-        fileId: settings.fileId,
+    const params = {
+        fileId,
         media: {
-            mimeType: settings.mimeType,
+            mimeType,
             body: mediaBody,
-            fields: 'id, name, webViewLink',
         },
-    });
+    };
+
+    const res = await drive.files.update(params);
+    const fileId = res.data.id;
+
+    if (fields.length > 0) {
+        const resFld = await getFileFromDrive(fileId, fields);
+        for (const field of fields) {
+            if (resFld[field] !== undefined) {
+                res.data[field] = resFld[field];
+            }
+        }
+    }
 
     return res.data;
-
 }
