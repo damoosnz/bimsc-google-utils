@@ -1,5 +1,3 @@
-import initDriveClient from "../init/initDriveClient.js";
-
 /**
  * Retrieves file metadata from Google Drive.
  *
@@ -9,6 +7,9 @@ import initDriveClient from "../init/initDriveClient.js";
  * @returns {Promise<Object>} The file metadata.
  * @throws {Error} If fileId is not provided or retrieval fails.
  */
+
+import initDriveClient from "../init/initDriveClient.js";
+
 export default async function getFileFromDrive({fileId, fields = []}) {
     if (!fileId) throw new Error('fileId is required');
     if (fields && !Array.isArray(fields)) {

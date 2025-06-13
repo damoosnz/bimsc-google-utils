@@ -1,7 +1,3 @@
-import initDriveClient from "../init/initDriveClient.js";
-import { toReadableStream } from "../utils/convert-file-contents-to-stream.js";
-import { getFileFromDrive } from "./get-file-from-drive.js";
-
 /**
  * Updates an existing file in Google Drive with new contents and MIME type.
  *
@@ -14,6 +10,11 @@ import { getFileFromDrive } from "./get-file-from-drive.js";
  * @returns {Promise<Object>} The updated file resource.
  * @throws {Error} If any required setting is missing.
  */
+
+import initDriveClient from "../init/initDriveClient.js";
+import { toReadableStream } from "../utils/convert-file-contents-to-stream.js";
+import  getFileFromDrive  from "./get-file-from-drive.js";
+
 export default async function updateFileInDrive({ fileId, mimeType, fileContents, fields = [] }) {
 
     if (!fileId) throw new Error('fileId is required');

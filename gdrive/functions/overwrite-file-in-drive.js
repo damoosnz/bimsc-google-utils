@@ -1,7 +1,3 @@
-import findFileIdInDrive from "./find-file-id-in-drive.js";
-import updateFileInDrive from "./update-file-in-drive.js";
-import uploadFileToDrive from "./upload-file-to-drive.js";
-
 /**
  * Uploads a file to Google Drive, overwriting it if it already exists in the specified folder.
  *
@@ -15,6 +11,12 @@ import uploadFileToDrive from "./upload-file-to-drive.js";
  * @returns {Promise<Object>} The uploaded or updated file resource.
  * @throws {Error} If any required setting is missing.
  */
+
+import findFileIdInDrive from "./find-file-id-in-drive.js";
+import updateFileInDrive from "./update-file-in-drive.js";
+import uploadFileToDrive from "./upload-file-to-drive.js";
+
+
 export default async function uploadOverwriteFileInDrive({ folderId, mimeType, fileName, fileContents, fields = [] }) {
     if (!folderId) throw new Error('folderId is required');
     if (!fileContents) throw new Error('fileContents is required');

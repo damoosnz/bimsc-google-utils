@@ -1,6 +1,3 @@
-import initDriveClient from "../init/initDriveClient.js";
-import { toReadableStream } from "../utils/convert-file-contents-to-stream.js";
-
 /**
  * Uploads a new file to Google Drive in the specified folder.
  *
@@ -14,6 +11,10 @@ import { toReadableStream } from "../utils/convert-file-contents-to-stream.js";
  * @returns {Promise<Object>} The uploaded file resource.
  * @throws {Error} If any required setting is missing.
  */
+
+import initDriveClient from "../init/initDriveClient.js";
+import { toReadableStream } from "../utils/convert-file-contents-to-stream.js";
+
 export default async function uploadFileToDrive({ folderId, mimeType, fileName, fileContents, fields = [] }) {
   
   if (!folderId) throw new Error('folderId is required');
