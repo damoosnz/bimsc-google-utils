@@ -37,7 +37,7 @@ export default async function updateFileInDrive({ fileId, mimeType, fileContents
     const res = await drive.files.update(params);
 
     if (fields.length > 0) {
-        const resFld = await getFileFromDrive(fileId, fields);
+        const resFld = await getFileFromDrive({fileId, fields});
         for (const field of fields) {
             if (resFld[field] !== undefined) {
                 res.data[field] = resFld[field];
