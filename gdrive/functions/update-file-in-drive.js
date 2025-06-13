@@ -1,6 +1,6 @@
 import initDriveClient from "../init/initDriveClient.js";
 import { toReadableStream } from "../utils/convert-file-contents-to-stream.js";
-import { getFileFromDrive } from "./get-file.js";
+import { getFileFromDrive } from "./get-file-from-drive.js";
 
 /**
  * Updates an existing file in Google Drive with new contents and MIME type.

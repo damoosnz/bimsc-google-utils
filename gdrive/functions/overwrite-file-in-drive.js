@@ -15,7 +15,7 @@ import uploadFileToDrive from "./upload-file-to-drive.js";
  * @returns {Promise<Object>} The uploaded or updated file resource.
  * @throws {Error} If any required setting is missing.
  */
-export async function uploadOverwriteFileInDrive({ folderId, mimeType, fileName, fileContents, fields = [] }) {
+export default async function uploadOverwriteFileInDrive({ folderId, mimeType, fileName, fileContents, fields = [] }) {
     if (!folderId) throw new Error('folderId is required');
     if (!fileContents) throw new Error('fileContents is required');
     if (!mimeType) throw new Error('mimeType is required');

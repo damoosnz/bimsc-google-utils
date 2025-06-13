@@ -9,7 +9,7 @@ import initDriveClient from "../init/initDriveClient.js";
  * @returns {Promise<Object>} The file metadata.
  * @throws {Error} If fileId is not provided or retrieval fails.
  */
-export async function getFileFromDrive({fileId, fields = []}) {
+export default async function getFileFromDrive({fileId, fields = []}) {
     if (!fileId) throw new Error('fileId is required');
     if (fields && !Array.isArray(fields)) {
         throw new Error('fields must be an array of strings');
