@@ -1,4 +1,4 @@
-import initGmailClient from "../init/initGmailClient.js";
+import initGmailClient from "../init/init-gmail-client.js";
 
 /**
  * Sends an email using the Gmail API.
