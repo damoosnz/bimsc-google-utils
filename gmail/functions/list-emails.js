@@ -1,4 +1,5 @@
-import initGmailClient from "../init/initGmailClient.js";
+
+import initGmailClient from "../init/init-gmail-client.js";
 
 /**
  * Lists email messages in the user's mailbox.
