@@ -11,19 +11,20 @@
 
 import initDriveClient from "../init/initDriveClient.js";
 
-export default async function findIdInDrive(settings = { folderId, fileName, type: 'file' }) {
+export default async function findIdInDrive({ folderId, fileName, type = 'file' }) {
 
-    if (!settings.fileName) throw new Error('fileName is required');
+    if (!fileName) throw new Error('fileName is required');
 
     const drive = await initDriveClient();
 
     // Build the query string
-    let query = `name = '${settings.fileName.replace(/'/g, "\\'")}' and trashed = false`;
-    if (settings.folderId) {
-        query = `'${settings.folderId}' in parents and ` + query;
+    let query = `name = '${fileName.replace(/'/g, "\\'")}' and trashed = false`;
+
+    if (folderId) {
+        query = `'${folderId}' in parents and ` + query;
     }
 
-    if settings.type === 'folder' {
+    if (type === 'folder') {
         query += " and mimeType = 'application/vnd.google-apps.folder'";
     }
 
