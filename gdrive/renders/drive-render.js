@@ -5,6 +5,7 @@ import updateFileInDrive from "../functions/update-file-in-drive.js"
 import uploadOverwriteFileInDrive from "../functions/overwrite-file-in-drive.js"
 import uploadFileToDrive from "../functions/upload-file-to-drive.js"
 import initDriveClient from "../init/initDriveClient.js"
+import moveFile from "../functions/move-file.js"
 
 export const drive = {
     findFileId: findFileIdInDrive,
@@ -12,6 +13,6 @@ export const drive = {
     uploadFile: uploadFileToDrive,
     updateFile: updateFileInDrive,
     overwriteFile: uploadOverwriteFileInDrive,
-    initDriveClient: initDriveClient,
-    
+    moveFile: moveFile,
+    initDriveClient: initDriveClient,    
 }
