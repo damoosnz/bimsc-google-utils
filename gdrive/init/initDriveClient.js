@@ -33,8 +33,5 @@ export default async function initDriveClient() {
     auth: jwtClient,
   });
 
-  const about = await drive.about.get({ fields: 'user' });
-  console.log('✅ Authenticated as:', about.data.user.emailAddress);
-
   return drive;
 }
