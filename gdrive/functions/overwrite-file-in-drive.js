@@ -12,7 +12,7 @@
  * @throws {Error} If any required setting is missing.
  */
 
-import findFileIdInDrive from "./find-file-id-in-drive.js";
+import findIdInDrive from "./find-file-id-in-drive.js";
 import updateFileInDrive from "./update-file-in-drive.js";
 import uploadFileToDrive from "./upload-file-to-drive.js";
 
@@ -25,7 +25,7 @@ export default async function uploadOverwriteFileInDrive({ folderId, mimeType, f
     if (!Array.isArray(fields)) throw new Error('fields must be an array of strings');
 
     // look for an existing file
-    const extgFileId = await findFileIdInDrive({ folderId, fileName });
+    const extgFileId = await findIdInDrive({ folderId, fileName });
 
     let file;
     if (extgFileId) {

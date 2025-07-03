@@ -1,4 +1,4 @@
-import findFileIdInDrive from "../functions/find-file-id-in-drive.js"
+import findIdInDrive from "../functions/find-file-id-in-drive.js"
 import getFileFromDrive from "../functions/get-file-from-drive.js"
 
 import updateFileInDrive from "../functions/update-file-in-drive.js"
@@ -8,7 +8,7 @@ import initDriveClient from "../init/initDriveClient.js"
 import moveFile from "../functions/move-file.js"
 
 export const drive = {
-    findFileId: findFileIdInDrive,
+    findId: findIdInDrive,
     getFile: getFileFromDrive,
     uploadFile: uploadFileToDrive,
     updateFile: updateFileInDrive,
