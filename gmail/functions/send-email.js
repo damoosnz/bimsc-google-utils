@@ -32,7 +32,7 @@ export default async function sendEmail({ to, subject, body, from, attachments =
         `Subject: ${subject}`,
         attachments.length > 0
             ? `Content-Type: multipart/mixed; boundary="${boundary}"`
-            : "Content-Type: text/plain; charset=utf-8",
+            : "Content-Type: text/html; charset=utf-8",
     ].filter(Boolean);
 
     // Build body
