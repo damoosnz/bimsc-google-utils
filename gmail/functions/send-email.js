@@ -1,6 +1,4 @@
 import initGmailClient from "../init/init-gmail-client.js";
-import fs from "fs";
-import path from "path";
 
 /**
  * Sends an email using the Gmail API, with optional attachments and alias support.
@@ -40,7 +38,7 @@ export default async function sendEmail({ to, subject, body, from, attachments =
     if (attachments.length > 0) {
         // Main text part
         messageBody += `--${boundary}\r\n`;
-        messageBody += "Content-Type: text/plain; charset=utf-8\r\n\r\n";
+        messageBody += "Content-Type: text/html; charset=utf-8\r\n\r\n";
         messageBody += `${body}\r\n`;
 
         // Attachments
