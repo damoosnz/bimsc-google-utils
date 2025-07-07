@@ -15,15 +15,17 @@
 import initDriveClient from "../init/initDriveClient.js";
 import { toReadableStream } from "../utils/convert-file-contents-to-stream.js";
 
-export default async function uploadFileToDrive({ folderId, mimeType, fileName, fileContents, fields = [] }) {
-  
+export default async function uploadFileToDrive({ drive = false, folderId, mimeType, fileName, fileContents, fields = [] }) {
+
   if (!folderId) throw new Error('folderId is required');
   if (!fileContents) throw new Error('fileContents is required');
   if (!mimeType) throw new Error('mimeType is required');
   if (!fileName) throw new Error('fileName is required');
   if (!Array.isArray(fields)) throw new Error('fields must be an array of strings');
 
-  const drive = await initDriveClient();
+  if (!drive) {
+    drive = await initDriveClient();
+  }
 
   const mediaBody = toReadableStream(fileContents);
 

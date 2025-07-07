@@ -11,11 +11,13 @@
 
 import initDriveClient from "../init/initDriveClient.js";
 
-export default async function findIdInDrive({ folderId, fileName, type = 'file' }) {
+export default async function findIdInDrive({ drive = false, folderId, fileName, type = 'file' }) {
 
     if (!fileName) throw new Error('fileName is required');
 
-    const drive = await initDriveClient();
+    if (!drive) {
+        drive = await initDriveClient();
+    }
 
     // Build the query string
     let query = `name = '${fileName.replace(/'/g, "\\'")}' and trashed = false`;

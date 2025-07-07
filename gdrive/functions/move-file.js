@@ -10,12 +10,14 @@ import initDriveClient from "../init/initDriveClient.js";
  * @returns {Promise<Object>} The updated file resource.
  * @throws {Error} If any required setting is missing.
  */
-export default async function moveFile({ fileId, folderId, fields = [] }) {
-    
+export default async function moveFile({ drive = false, fileId, folderId, fields = [] }) {
+
     if (!fileId) throw new Error('fileId is required');
     if (!folderId) throw new Error('folderId is required');
 
-    const drive = await initDriveClient();
+    if (!drive) {
+        drive = await initDriveClient();
+    }
 
     // Get the file's current parents
     const file = await drive.files.get({

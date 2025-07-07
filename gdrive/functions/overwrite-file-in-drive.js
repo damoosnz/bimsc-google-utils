@@ -17,7 +17,7 @@ import updateFileInDrive from "./update-file-in-drive.js";
 import uploadFileToDrive from "./upload-file-to-drive.js";
 
 
-export default async function uploadOverwriteFileInDrive({ folderId, mimeType, fileName, fileContents, fields = [] }) {
+export default async function uploadOverwriteFileInDrive({ drive = false, folderId, mimeType, fileName, fileContents, fields = [] }) {
     if (!folderId) throw new Error('folderId is required');
     if (!fileContents) throw new Error('fileContents is required');
     if (!mimeType) throw new Error('mimeType is required');
@@ -30,6 +30,7 @@ export default async function uploadOverwriteFileInDrive({ folderId, mimeType, f
     let file;
     if (extgFileId) {
         file = await updateFileInDrive({
+            drive,
             fileId: extgFileId,
             mimeType,
             fileContents,
@@ -37,6 +38,7 @@ export default async function uploadOverwriteFileInDrive({ folderId, mimeType, f
         });
     } else {
         file = await uploadFileToDrive({
+            drive,
             folderId,
             mimeType,
             fileName,

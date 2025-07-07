@@ -11,12 +11,14 @@ import initDriveClient from "../init/initDriveClient.js";
  * @returns {Promise<Object>} The created folder resource.
  * @throws {Error} If folderName is not provided.
  */
-export default async function createFolderInDrive({ folderName, parentId, fields = [] }) {
-    
+export default async function createFolderInDrive({drive = false,  folderName, parentId, fields = [] }) {
+
     if (!folderName) throw new Error('folderName is required');
     if (fields && !Array.isArray(fields)) throw new Error('fields must be an array of strings');
 
-    const drive = await initDriveClient();
+    if (!drive) {
+        drive = await initDriveClient();
+    }
 
     const fileMetadata = {
         name: folderName,

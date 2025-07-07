@@ -10,13 +10,15 @@
 
 import initDriveClient from "../init/initDriveClient.js";
 
-export default async function getFileFromDrive({fileId, fields = []}) {
+export default async function getFileFromDrive({drive = false,  fileId, fields = [] }) {
     if (!fileId) throw new Error('fileId is required');
     if (fields && !Array.isArray(fields)) {
         throw new Error('fields must be an array of strings');
     }
 
-    const drive = await initDriveClient();
+    if (!drive) {
+        drive = await initDriveClient();
+    }
 
     try {
         const params = { fileId };
