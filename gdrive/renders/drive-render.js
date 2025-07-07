@@ -7,6 +7,7 @@ import uploadFileToDrive from "../functions/upload-file-to-drive.js"
 import initDriveClient from "../init/initDriveClient.js"
 import moveFile from "../functions/move-file.js"
 import createFolderInDrive from "../functions/create-folder-in-drive.js"
+import listFilesInFolder from "../functions/list-files-in-folder.js"
 
 export const drive = {
     findId: findIdInDrive,
@@ -16,5 +17,6 @@ export const drive = {
     overwriteFile: uploadOverwriteFileInDrive,
     moveFile: moveFile,
     createFolder: createFolderInDrive,
-    initDriveClient: initDriveClient,    
+    listFiles: listFilesInFolder,
+    initDriveClient: initDriveClient, 
 }
