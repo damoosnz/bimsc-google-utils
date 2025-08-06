@@ -10,8 +10,11 @@ import initGmailClient from "../init/init-gmail-client.js";
  * @param {number} [options.maxResults] - Maximum number of results to return.
  * @returns {Promise<Object[]>} Array of email message resources.
  */
-export default async function listEmails({ q = "", maxResults = 10 } = {}) {
-    const gmail = await initGmailClient();
+export default async function listEmails({ gmail = false, q = "", maxResults = 10 }) {
+
+    if (!gmail) {
+        gmail = await initGmailClient();
+    }
 
     const res = await gmail.users.messages.list({
         userId: "me",
