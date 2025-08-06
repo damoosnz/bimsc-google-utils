@@ -13,13 +13,15 @@ import initGmailClient from "../init/init-gmail-client.js";
  * @returns {Promise<Object>} The sent message resource.
  * @throws {Error} If any required setting is missing.
  */
-export default async function sendEmail({ to, subject, body, from, attachments = [] }) {
+export default async function sendEmail({ gmail = false, to, subject, body, from, attachments = [] }) {
     if (!to) throw new Error("Recipient (to) is required");
     if (!subject) throw new Error("Subject is required");
     if (!body) throw new Error("Body is required");
     if (attachments && !Array.isArray(attachments)) throw new Error("attachments must be an array");
 
-    const gmail = await initGmailClient();
+    if (!gmail) {
+        gmail = await initGmailClient();
+    }
 
     // Build headers
     const boundary = "__bimsc_gmail_boundary__";
