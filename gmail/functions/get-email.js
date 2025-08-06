@@ -9,19 +9,15 @@ import initGmailClient from "../init/init-gmail-client.js";
  * @returns {Promise<Object>} The email message resource.
  * @throws {Error} If messageId is not provided.
  */
-export default async function getEmail({ gmail = false, messageId, fields = [] }) {
+export default async function getEmail({ gmail = false, messageId, format = 'full' }) {
     if (!messageId) throw new Error("messageId is required");
     if (fields && !Array.isArray(fields)) throw new Error("fields must be an array of strings");
 
     if (!gmail) {
-        const gmail = await initGmailClient();
+        gmail = await initGmailClient();
     }
 
-    const params = { userId: "me", id: messageId };
-    if (fields.length > 0) {
-        params.format = "full";
-        params.fields = fields.join(", ");
-    }
+    const params = { userId: "me", id: messageId, format };
 
     const res = await gmail.users.messages.get(params);
     return res.data;
