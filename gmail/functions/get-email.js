@@ -11,7 +11,6 @@ import initGmailClient from "../init/init-gmail-client.js";
  */
 export default async function getEmail({ gmail = false, messageId, format = 'full' }) {
     if (!messageId) throw new Error("messageId is required");
-    if (fields && !Array.isArray(fields)) throw new Error("fields must be an array of strings");
 
     if (!gmail) {
         gmail = await initGmailClient();
