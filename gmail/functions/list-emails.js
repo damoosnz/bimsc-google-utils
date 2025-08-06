@@ -10,7 +10,7 @@ import initGmailClient from "../init/init-gmail-client.js";
  * @param {number} [options.maxResults] - Maximum number of results to return.
  * @returns {Promise<Object[]>} Array of email message resources.
  */
-export default async function listEmails({ gmail = false, q = "", maxResults = 10, format = 'metadata' }) {
+export default async function listEmails({ gmail = false, q = "", maxResults = 10}) {
 
     if (!gmail) {
         gmail = await initGmailClient();
@@ -20,8 +20,6 @@ export default async function listEmails({ gmail = false, q = "", maxResults = 1
         userId: "me",
         q,
         maxResults,
-        format,
-        metadataHeaders: ["From", "To", "Subject", "Date"]
     });
 
     return res.data.messages || [];
