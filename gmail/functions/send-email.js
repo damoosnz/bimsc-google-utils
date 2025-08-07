@@ -14,6 +14,7 @@ import initGmailClient from "../init/init-gmail-client.js";
  * @throws {Error} If any required setting is missing.
  */
 export default async function sendEmail({ gmail = false, to, subject, body, from, attachments = [] }) {
+
     if (!to) throw new Error("Recipient (to) is required");
     if (!subject) throw new Error("Subject is required");
     if (!body) throw new Error("Body is required");
@@ -23,13 +24,14 @@ export default async function sendEmail({ gmail = false, to, subject, body, from
         gmail = await initGmailClient();
     }
 
-    // Build headers
     const boundary = "__bimsc_gmail_boundary__";
+
+    // Build headers 
     const headers = [
         from ? `From: ${from}` : undefined,
         `To: ${to}`,
         "MIME-Version: 1.0",
-        `Subject: ${subject}`,
+        `Subject: =?utf-8?B?${Buffer.from(subject, 'utf8').toString('base64')}?=`,
         attachments.length > 0
             ? `Content-Type: multipart/mixed; boundary="${boundary}"`
             : "Content-Type: text/html; charset=utf-8",
