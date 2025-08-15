@@ -8,8 +8,11 @@ import initDriveClient from "../../gdrive/init/initDriveClient.js";
  * @param {string} fileId - The ID of the file to attach.
  * @returns {Promise<{filename: string, content: Buffer, mimeType: string}>} The attachment object.
  */
-export default async function getDriveAttachment(fileId) {
-    const drive = await initDriveClient();
+export default async function getDriveAttachment({ drive = false, fileId }) {
+
+    if (!drive) {
+        drive = await initDriveClient();
+    }
 
     // Get file metadata (name and mimeType)
     const metaRes = await drive.files.get({
