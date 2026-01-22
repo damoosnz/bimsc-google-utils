@@ -13,7 +13,7 @@ import initGmailClient from "../init/init-gmail-client.js";
  * @returns {Promise<Object>} The sent message resource.
  * @throws {Error} If any required setting is missing.
  */
-export default async function sendEmail({ gmail = false, to, bcc,subject, body, from, attachments = [] }) {
+export default async function sendEmail({ gmail = false, to, bcc, replyTo, subject, body, from, attachments = [] }) {
 
     if (!to) throw new Error("Recipient (to) is required");
     if (!subject) throw new Error("Subject is required");
@@ -32,6 +32,7 @@ export default async function sendEmail({ gmail = false, to, bcc,subject, body, 
         from ? `From: ${from}` : undefined,
         `To: ${to}`,
         bccString ? `Bcc: ${bccString}` : undefined,
+        replyTo ? `Reply-To: ${replyTo}` : undefined,
         "MIME-Version: 1.0",
         `Subject: =?utf-8?B?${Buffer.from(subject, 'utf8').toString('base64')}?=`,
         attachments.length > 0
