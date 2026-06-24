@@ -5,12 +5,12 @@
  * or response parsing; it only handles the raw HTTP request/response cycle.
  */
 
-const DEFAULT_MODEL = 'gemini-2.5-flash-preview-09-2025';
+const DEFAULT_MODEL = 'gemini-2.5-flash';
 
 /**
  * Fetches the raw JSON response from the Gemini API endpoint.
  * * @param {Object} payload - The complete API request body (contents, generationConfig, etc.).
- * @param {string} [modelName=DEFAULT_MODEL] - The name of the Gemini model to use (e.g., 'gemini-2.5-flash-preview-09-2025').
+ * @param {string} [modelName=DEFAULT_MODEL] - The name of the Gemini model to use (e.g., 'gemini-2.5-flash').
  * @returns {Promise<Object|null>} The raw JSON response object from the API, or null on failure after retries.
  */
 export async function fetchGeminiApi(payload, modelName = DEFAULT_MODEL) {
